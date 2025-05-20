@@ -3,14 +3,14 @@ use std::fmt::{Display, Formatter, Result};
 
 pub struct Answer {
     pub first: Option<i64>,
-    pub second: Option<i64>
+    pub second: Option<i64>,
 }
 
 impl Default for Answer {
     fn default() -> Self {
         Answer {
             first: None,
-            second: None
+            second: None,
         }
     }
 }

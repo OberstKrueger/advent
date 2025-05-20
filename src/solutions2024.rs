@@ -12,9 +12,10 @@ pub fn solution_2024_01(input: &str) -> Answer {
     let mut hash: HashMap<i64, i64> = HashMap::new();
 
     for line in input.lines() {
-        let values: Vec<i64> = line.split_whitespace()
-        .filter_map(|number| number.parse::<i64>().ok())
-        .collect();
+        let values: Vec<i64> = line
+            .split_whitespace()
+            .filter_map(|number| number.parse::<i64>().ok())
+            .collect();
 
         if values.len() == 2 {
             list1.push(values[0]);
@@ -49,7 +50,7 @@ mod tests_2024 {
 3   9
 3   3"#;
 
-    assert_eq!(solution_2024_01(input).first, Some(11));
-    assert_eq!(solution_2024_01(input).second, Some(31));
+        assert_eq!(solution_2024_01(input).first, Some(11));
+        assert_eq!(solution_2024_01(input).second, Some(31));
     }
 }

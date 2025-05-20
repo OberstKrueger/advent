@@ -3,7 +3,7 @@ use crate::Answer;
 pub fn solution_2015_01(input: &str) -> Answer {
     let mut answer = Answer {
         first: Some(0),
-        second: None
+        second: None,
     };
 
     for (index, character) in input.chars().enumerate() {
@@ -28,9 +28,10 @@ pub fn solution_2015_02(input: &str) -> Answer {
     };
 
     for line in input.lines() {
-        let mut dimensions: Vec<i64> = line.split('x')
-        .filter_map(|number| number.parse::<i64>().ok())
-        .collect();
+        let mut dimensions: Vec<i64> = line
+            .split('x')
+            .filter_map(|number| number.parse::<i64>().ok())
+            .collect();
 
         if dimensions.len() == 3 {
             dimensions.sort();
@@ -43,7 +44,7 @@ pub fn solution_2015_02(input: &str) -> Answer {
 
             let ribbon = 2 * dimensions[0] + 2 * dimensions[1] + dimensions.iter().product::<i64>();
 
-            answer.first = Some(answer.first.unwrap_or(0) + side1 +total);
+            answer.first = Some(answer.first.unwrap_or(0) + side1 + total);
             answer.second = Some(answer.second.unwrap_or(0) + ribbon);
         }
     }
@@ -71,7 +72,7 @@ mod tests_2015 {
     }
 
     #[test]
-    fn test_2015_02 () {
+    fn test_2015_02() {
         assert_eq!(solution_2015_02("2x3x4").first, Some(58));
         assert_eq!(solution_2015_02("1x1x10").first, Some(43));
         assert_eq!(solution_2015_02("2x3x4").second, Some(34));
