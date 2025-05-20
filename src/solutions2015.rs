@@ -56,7 +56,7 @@ mod tests_2015 {
     use super::*;
 
     #[test]
-    fn test_01() {
+    fn test_2015_01() {
         assert_eq!(solution_2015_01("(())").first, Some(0));
         assert_eq!(solution_2015_01("()()").first, Some(0));
         assert_eq!(solution_2015_01("(((").first, Some(3));
@@ -68,7 +68,10 @@ mod tests_2015 {
         assert_eq!(solution_2015_01(")())())").first, Some(-3));
         assert_eq!(solution_2015_01(")").second, Some(1));
         assert_eq!(solution_2015_01("()())").second, Some(5));
+    }
 
+    #[test]
+    fn test_2015_02 () {
         assert_eq!(solution_2015_02("2x3x4").first, Some(58));
         assert_eq!(solution_2015_02("1x1x10").first, Some(43));
         assert_eq!(solution_2015_02("2x3x4").second, Some(34));
