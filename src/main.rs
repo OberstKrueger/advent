@@ -14,6 +14,7 @@ fn main() {
 
     print!("\n");
     println!("2024.01 => {}", solution_2024_01(&read_file("inputs/2024_01.txt")));
+    println!("2024.02 => {}", solution_2024_02(&read_file("inputs/2024_02.txt")));
 }
 
 fn read_file(input: &str) -> String {
