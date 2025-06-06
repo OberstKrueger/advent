@@ -1,20 +1,19 @@
 use crate::Answer;
 
 pub fn solution_2015_01(input: &str) -> Answer {
-    let mut answer = Answer {
-        first: Some(0),
-        second: None,
-    };
+    let mut answer = Answer::default();
+    let mut found = false;
 
     for (index, character) in input.chars().enumerate() {
         match character {
-            '(' => answer.first = Some(answer.first.unwrap_or(0) + 1),
-            ')' => answer.first = Some(answer.first.unwrap_or(0) - 1),
+            '(' => answer.first += 1,
+            ')' => answer.first -= 1,
             _   => {}
         }
 
-        if answer.second.is_none() && answer.first == Some(-1) {
-            answer.second = Some(index as i64 + 1);
+        if !found && answer.first == -1 {
+            answer.second = index as i64 + 1;
+            found = true;
         }
     }
 
@@ -22,10 +21,7 @@ pub fn solution_2015_01(input: &str) -> Answer {
 }
 
 pub fn solution_2015_02(input: &str) -> Answer {
-    let mut answer = Answer {
-        first: Some(0),
-        second: None,
-    };
+    let mut answer = Answer::default();
 
     for line in input.lines() {
         let mut dimensions: Vec<i64> = line
@@ -44,8 +40,8 @@ pub fn solution_2015_02(input: &str) -> Answer {
 
             let ribbon = 2 * dimensions[0] + 2 * dimensions[1] + dimensions.iter().product::<i64>();
 
-            answer.first = Some(answer.first.unwrap_or(0) + side1 + total);
-            answer.second = Some(answer.second.unwrap_or(0) + ribbon);
+            answer.first += side1 + total;
+            answer.second += ribbon;
         }
     }
 
@@ -58,24 +54,24 @@ mod tests_2015 {
 
     #[test]
     fn test_2015_01() {
-        assert_eq!(solution_2015_01("(())").first, Some(0));
-        assert_eq!(solution_2015_01("()()").first, Some(0));
-        assert_eq!(solution_2015_01("(((").first, Some(3));
-        assert_eq!(solution_2015_01("(()(()(").first, Some(3));
-        assert_eq!(solution_2015_01("))(((((").first, Some(3));
-        assert_eq!(solution_2015_01("())").first, Some(-1));
-        assert_eq!(solution_2015_01("))(").first, Some(-1));
-        assert_eq!(solution_2015_01(")))").first, Some(-3));
-        assert_eq!(solution_2015_01(")())())").first, Some(-3));
-        assert_eq!(solution_2015_01(")").second, Some(1));
-        assert_eq!(solution_2015_01("()())").second, Some(5));
+        assert_eq!(solution_2015_01("(())").first, 0);
+        assert_eq!(solution_2015_01("()()").first, 0);
+        assert_eq!(solution_2015_01("(((").first, 3);
+        assert_eq!(solution_2015_01("(()(()(").first, 3);
+        assert_eq!(solution_2015_01("))(((((").first, 3);
+        assert_eq!(solution_2015_01("())").first, -1);
+        assert_eq!(solution_2015_01("))(").first, -1);
+        assert_eq!(solution_2015_01(")))").first, -3);
+        assert_eq!(solution_2015_01(")())())").first, -3);
+        assert_eq!(solution_2015_01(")").second, 1);
+        assert_eq!(solution_2015_01("()())").second, 5);
     }
 
     #[test]
     fn test_2015_02() {
-        assert_eq!(solution_2015_02("2x3x4").first, Some(58));
-        assert_eq!(solution_2015_02("1x1x10").first, Some(43));
-        assert_eq!(solution_2015_02("2x3x4").second, Some(34));
-        assert_eq!(solution_2015_02("1x1x10").second, Some(14));
+        assert_eq!(solution_2015_02("2x3x4").first, 58);
+        assert_eq!(solution_2015_02("1x1x10").first, 43);
+        assert_eq!(solution_2015_02("2x3x4").second, 34);
+        assert_eq!(solution_2015_02("1x1x10").second, 14);
     }
 }

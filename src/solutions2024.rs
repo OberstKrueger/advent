@@ -3,10 +3,7 @@ use crate::Answer;
 use std::collections::HashMap;
 
 pub fn solution_2024_01(input: &str) -> Answer {
-    let mut answer = Answer {
-        first: Some(0),
-        second: Some(0),
-    };
+    let mut answer = Answer::default();
     let mut list1: Vec<i64> = Vec::new();
     let mut list2: Vec<i64> = Vec::new();
     let mut hash: HashMap<i64, i64> = HashMap::new();
@@ -30,18 +27,15 @@ pub fn solution_2024_01(input: &str) -> Answer {
     for (index, number) in list1.iter().enumerate() {
         let check: i64 = *hash.get(number).unwrap_or(&0);
 
-        answer.first = Some(answer.first.unwrap_or(0) + (number - list2[index]).abs());
-        answer.second = Some(answer.second.unwrap_or(0) + number * check);
+        answer.first += (number - list2[index]).abs();
+        answer.second += number * check;
     }
 
     answer
 }
 
 pub fn solution_2024_02(input: &str) -> Answer {
-    let mut answer = Answer {
-        first: Some(0),
-        second: Some(0),
-    };
+    let mut answer = Answer::default();
 
     for line in input.lines() {
         let mut check: bool = false;
@@ -77,7 +71,7 @@ pub fn solution_2024_02(input: &str) -> Answer {
 
             match (index, errors) {
                 (0, 0) => {
-                    answer.first = Some(answer.first.unwrap_or(0) + 1);
+                    answer.first += 1;
                 }
                 (1.., 0) => check = true,
                 _ => {}
@@ -85,7 +79,7 @@ pub fn solution_2024_02(input: &str) -> Answer {
         }
 
         if check {
-            answer.second = Some(answer.second.unwrap_or(0) + 1);
+            answer.second += 1;
         }
     }
 
@@ -105,22 +99,23 @@ mod tests_2024 {
 3   9
 3   3"#;
 
-        assert_eq!(solution_2024_01(input).first, Some(11));
-        assert_eq!(solution_2024_01(input).second, Some(31));
+        assert_eq!(solution_2024_01(input).first, 11);
+        assert_eq!(solution_2024_01(input).second, 31);
     }
 
     #[test]
     fn test_2024_02() {
-        assert_eq!(solution_2024_02("7 6 4 2 1").first, Some(1));
-        assert_eq!(solution_2024_02("1 2 7 8 9").first, Some(0));
-        assert_eq!(solution_2024_02("9 7 6 2 1").first, Some(0));
-        assert_eq!(solution_2024_02("1 3 2 4 5").first, Some(0));
-        assert_eq!(solution_2024_02("1 3 6 7 9").first, Some(1));
+        assert_eq!(solution_2024_02("7 6 4 2 1").first, 1);
+        assert_eq!(solution_2024_02("1 2 7 8 9").first, 0);
+        assert_eq!(solution_2024_02("9 7 6 2 1").first, 0);
+        assert_eq!(solution_2024_02("1 3 2 4 5").first, 0);
+        assert_eq!(solution_2024_02("1 3 6 7 9").first, 1);
 
-        assert_eq!(solution_2024_02("7 6 4 2 1").second, Some(1));
-        assert_eq!(solution_2024_02("1 2 7 8 9").second, Some(0));
-        assert_eq!(solution_2024_02("9 7 6 2 1").second, Some(0));
-        assert_eq!(solution_2024_02("1 3 2 4 5").second, Some(1));
-        assert_eq!(solution_2024_02("1 3 6 7 9").second, Some(1));
+        assert_eq!(solution_2024_02("7 6 4 2 1").second, 1);
+        assert_eq!(solution_2024_02("1 2 7 8 9").second, 0);
+        assert_eq!(solution_2024_02("9 7 6 2 1").second, 0);
+        assert_eq!(solution_2024_02("1 3 2 4 5").second, 1);
+        assert_eq!(solution_2024_02("1 3 6 7 9").second, 1);
+    }
     }
 }
