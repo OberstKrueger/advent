@@ -1,2 +1,3 @@
-inputs/*.txt
-/target
+.swiftpm
+Sources/advent/Inputs/*.txt
+
