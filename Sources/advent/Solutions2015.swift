@@ -65,6 +65,7 @@ func solution_2015_03(_ input: String) -> Answer {
     houses_1.insert(santa_1)
     houses_2.insert(santa_2)
 
+    // Single loop that handles both parts 1 and 2.
     for (index, direction) in input.enumerated() {
         switch (direction, index.isMultiple(of: 2)) {
         case ("^", true):
