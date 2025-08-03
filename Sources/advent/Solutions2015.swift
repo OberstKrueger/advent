@@ -104,3 +104,36 @@ func solution_2015_03(_ input: String) -> Answer {
 
     return answer
 }
+
+func solution_2015_04(_ input: String) -> Answer {
+    // Using CommonCrypto as CryptoKit is slow.
+    // Sssslllloooowwww....
+    // Probably some more that could be done here...
+
+    let key = input.trimmingCharacters(in: .whitespacesAndNewlines)
+    var answer = Answer()
+    var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+
+    for number: Int in 1...Int.max {
+        let combined = key + String(number)
+        let inputData = Data(combined.utf8)
+        
+        _ = inputData.withUnsafeBytes { bytes in
+            CC_MD5(bytes.baseAddress, CC_LONG(inputData.count), &hash)
+        }
+
+        if answer.first == 0 && hash[0] == 0 && hash[1] == 0 && hash[2] < 0x10 {
+            answer.first = number
+        }
+        if answer.second == 0 && hash[0] == 0 && hash[1] == 0 && hash[2] == 0 {
+            answer.second = number
+        }
+
+        if answer.first != 0 && answer.second != 0 {
+            break
+        }
+    }
+
+    return answer
+}
+

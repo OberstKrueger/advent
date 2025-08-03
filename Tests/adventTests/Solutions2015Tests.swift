@@ -31,4 +31,9 @@ final class Solutions2015Tests: XCTestCase {
         XCTAssertEqual(solution_2015_03("^>v<").second, 3)
         XCTAssertEqual(solution_2015_03("^v^v^v^v^v").second, 11)
     }
+
+    func test_2015_04() {
+        XCTAssertEqual(solution_2015_04("abcdef").first, 609043)
+        XCTAssertEqual(solution_2015_04("pqrstuv").first, 1048970)
+    }
 }
